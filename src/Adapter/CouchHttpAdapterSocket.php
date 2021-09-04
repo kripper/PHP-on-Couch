@@ -267,6 +267,7 @@ class CouchHttpAdapterSocket extends AbstractCouchHttpAdapter implements CouchHt
             $e2 = null;
             $read = [$this->socket];
             ($numChangedStreams = stream_select($read, $e, $e2, 1));
+            if($caller->timerCallback) call_user_func($caller->timerCallback);
             if (false === $numChangedStreams) {
                 $this->disconnect();
             } elseif ($numChangedStreams > 0) {
